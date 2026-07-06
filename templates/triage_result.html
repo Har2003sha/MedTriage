@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Triage Result - MedTriage AI{% endblock %}
+{% block content %}
+{% set badge_class = {
+  'Emergency': 'bg-danger',
+  'Urgent': 'bg-warning text-dark',
+  'Non-Urgent': 'bg-success'
+} %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <h3>Triage Assessment</h3>
+          <span class="badge {{ badge_class.get(record.urgency_level, 'bg-secondary') }} fs-6 px-3 py-2">
+            {{ record.urgency_level }} ({{ record.urgency_score }}/10)
+          </span>
+        </div>
+
+        <p><strong>Recommended Department:</strong> {{ record.department }}</p>
+        <p><strong>Language:</strong> {{ record.language.upper() }}</p>
+
+        <hr>
+        <h5>Original Symptom Description</h5>
+        <p class="fst-italic">"{{ record.raw_symptom_text }}"</p>
+
+        <h5 class="mt-4">Automated Clinical Summary</h5>
+        <p>{{ record.ai_summary }}</p>
+
+        {% if record.matched_symptoms %}
+        <h6 class="mt-3">Detected Symptom Signals</h6>
+        <p>
+          {% for term in record.matched_symptoms.split(', ') %}
+            {% if term %}<span class="badge bg-secondary me-1">{{ term.replace('_', ' ') }}</span>{% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
+
+        <a href="{{ url_for('triage.new_triage') }}" class="btn btn-primary mt-3">New Assessment</a>
+        <a href="{{ url_for('triage.dashboard') }}" class="btn btn-outline-secondary mt-3">Back to Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

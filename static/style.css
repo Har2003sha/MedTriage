@@ -1,0 +1,205 @@
+/* ==========================
+   BODY
+========================== */
+
+body{
+    margin:0;
+    padding:0;
+    font-family:"Segoe UI",sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #eef2ff,
+        #d9e8ff,
+        #f5f7fa
+    );
+
+    background-size:400% 400%;
+    animation:bgAnimation 12s ease infinite;
+    min-height:100vh;
+}
+
+@keyframes bgAnimation{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar{
+
+    background:linear-gradient(
+        90deg,
+        #0b1e3d,
+        #14336b
+    ) !important;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.navbar-brand{
+
+    color:#fff !important;
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    transition:.4s;
+}
+
+.navbar-brand:hover{
+
+    color:#2fd3c9 !important;
+
+    transform:scale(1.08);
+}
+
+/* ==========================
+   CARD
+========================== */
+
+.card{
+
+    border:none;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+
+        0 12px 30px rgba(20,51,107,.12);
+
+    transition:all .4s ease;
+
+    overflow:hidden;
+
+    transform-style:preserve-3d;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-10px)
+        rotateX(4deg)
+        rotateY(-4deg)
+        scale(1.02);
+
+    box-shadow:
+
+        0 25px 45px rgba(20,51,107,.25);
+
+}
+
+/* Shine Effect */
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-120%;
+
+    left:-60%;
+
+    width:60%;
+
+    height:300%;
+
+    background:rgba(255,255,255,.35);
+
+    transform:rotate(25deg);
+
+    transition:.8s;
+
+}
+
+.card:hover::before{
+
+    left:160%;
+
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.btn-primary{
+
+    background:linear-gradient(
+        135deg,
+        #14336b,
+        #2fd3c9
+    );
+
+    border:none;
+
+    border-radius:30px;
+
+    transition:.4s;
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(20,51,107,.35);
+}
+
+/* ==========================
+   TEXT
+========================== */
+
+h1,h2,h3,h4,h5{
+
+    color:#14336b;
+
+    font-weight:700;
+}
+
+p{
+
+    color:#555;
+}
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#14336b;
+
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#eef2ff;
+}

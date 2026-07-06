@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - MedTriage AI{% endblock %}
+{% block content %}
+
+{% set badge_class = {
+  'Emergency': 'bg-danger',
+  'Urgent': 'bg-warning text-dark',
+  'Non-Urgent': 'bg-success'
+} %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Your Triage History</h3>
+  <a href="{{ url_for('triage.new_triage') }}" class="btn btn-primary">+ New Triage</a>
+</div>
+
+{% if records %}
+<div class="table-responsive">
+  <table class="table table-hover align-middle bg-white shadow-sm">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Language</th>
+        <th>Symptoms</th>
+        <th>Urgency</th>
+        <th>Department</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in records %}
+      <tr>
+        <td>{{ r.created_at.strftime('%d %b %Y, %H:%M') }}</td>
+        <td>{{ r.language.upper() }}</td>
+        <td>{{ r.raw_symptom_text[:40] }}{% if r.raw_symptom_text|length > 40 %}...{% endif %}</td>
+        <td><span class="badge {{ badge_class.get(r.urgency_level, 'bg-secondary') }}">{{ r.urgency_level }}</span></td>
+        <td>{{ r.department }}</td>
+        <td><a href="{{ url_for('triage.result', record_id=r.id) }}" class="btn btn-sm btn-outline-primary">View</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-info">You haven't submitted any triage requests yet.</div>
+{% endif %}
+{% endblock %}
